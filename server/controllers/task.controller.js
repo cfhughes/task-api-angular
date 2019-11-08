@@ -3,9 +3,9 @@ const errorHandler = require('./concerns/error-handler');
 
 module.exports = {
   index(request, response) {
-    Task.find(request.body)
+    Task.find()
       .then(tasks => response.json(tasks))
-      .catch(errorHandler.bind(response));
+      .catch(err=> response.json(err));
   },
   show(request, response) {
     Task.findById(request.params.id)
