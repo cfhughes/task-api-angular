@@ -1,5 +1,4 @@
 const Task = require('mongoose').model('Task');
-const errorHandler = require('./concerns/error-handler');
 
 module.exports = {
   index(request, response) {
@@ -10,21 +9,21 @@ module.exports = {
   show(request, response) {
     Task.findById(request.params.id)
       .then(task => response.json(task))
-      .catch(errorHandler.bind(response));
+      .catch(err => res.json(err));
   },
   create(request, response) {
     Task.create(request.body)
       .then(task => response.json(task))
-      .catch(errorHandler.bind(response));
+      .catch(err => res.json(err));
   },
   update(request, response) {
     Task.findByIdAndUpdate(request.params.id, request.body, { new: true })
       .then(task => response.json(task))
-      .catch(errorHandler.bind(response));
+      .catch(err => res.json(err));
   },
   destroy(request, response) {
     Task.findByIdAndRemove(request.params.id)
       .then(result => response.json(result))
-      .catch(errorHandler.bind(response));
+      .catch(err => res.json(err));
   },
 };
