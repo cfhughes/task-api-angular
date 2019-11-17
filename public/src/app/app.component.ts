@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   tasks;
   newTask;
   editTask;
+  errors = []; //erors when creating a task
+  editerrors = []; //errors when editing a task
   constructor(private _httpService: HttpService) { }
 
   ngOnInit() {
@@ -24,8 +26,13 @@ export class AppComponent implements OnInit {
     console.log("in component, task: ", this.newTask)
     let observable = this._httpService.createTask(this.newTask);
     observable.subscribe(data => {
-      this.newTask = { title: "", description: "" }
-      this.getTasksFromService()
+      if (data['errors']){
+        this.errors = data['errors']
+      }else{
+        this.errors = [];
+        this.newTask = { title: "", description: "" }
+        this.getTasksFromService()
+      }
     })
 
   }
@@ -57,9 +64,14 @@ export class AppComponent implements OnInit {
   updateTask() {
     let observable = this._httpService.updateTask(this.editTask);
     observable.subscribe(data => {
-      console.log("successfully updated task!")
-      this.editTask = null;
-      this.getTasksFromService();
+      if (data['errors']){
+        this.editerrors = data['errors']
+      }else{
+        this.editerrors = [];
+        this.editTask = null;
+        this.getTasksFromService();
+        console.log("successfully updated task!")
+      }
     })
   }
 }

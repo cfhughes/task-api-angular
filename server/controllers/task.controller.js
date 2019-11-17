@@ -17,7 +17,7 @@ module.exports = {
       .catch(err => response.json(err));
   },
   update(request, response) {
-    Task.findByIdAndUpdate(request.params.id, request.body, { new: true })
+    Task.findByIdAndUpdate(request.params.id, request.body, { new: true, runValidators: true, context: 'query' })
       .then(task => response.json(task))
       .catch(err => response.json(err));
   },

@@ -6,14 +6,18 @@
 </div>
 <br><br>
 <form (submit)="createTask()">
+    <p class="error" *ngIf="errors.title">{{errors.title.message}}</p>
     <input type="text" name="newTask.title" [(ngModel)]="newTask.title" />
+    <p class="error" *ngIf="errors.description">{{errors.description.message}}</p>
     <input type="text" name="newTask.description" [(ngModel)]="newTask.description" />
     <input type="submit" value="Create Task" />
 </form>
 <br><br>
 <form *ngIf="editTask" (submit)="updateTask()">
     <h3>Edit Task</h3>
+    <p class="error" *ngIf="editerrors.title">{{editerrors.title.message}}</p>
     <input type="text" name="editTask.title" [(ngModel)]="editTask.title" />
+    <p class="error" *ngIf="editerrors.description">{{editerrors.description.message}}</p>
     <input type="text" name="editTask.description" [(ngModel)]="editTask.description" />
     <input type="submit" value="Update Task"/>
 </form>

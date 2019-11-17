@@ -3,10 +3,16 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const taskSchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    minlength: 3,
+    maxlength: 25
+  },
   description: {
     type: String,
-    default: ''
+    default: '',
+    minlength: 3,
+    maxlength: 500
   },
   completed: {
     type: Boolean,
